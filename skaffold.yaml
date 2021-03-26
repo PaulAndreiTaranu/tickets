@@ -1,0 +1,60 @@
+apiVersion: skaffold/v2beta11
+kind: Config
+deploy:
+    kubectl:
+        manifests:
+            - ./infra/k8s/*
+build:
+    # local:
+    #     push: false
+    googleCloudBuild:
+        projectId: tickets-306619
+    artifacts:
+        - image: eu.gcr.io/tickets-306619/auth
+          context: auth
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - src: 'src/**/*.ts'
+                    dest: .
+        - image: eu.gcr.io/tickets-306619/client
+          context: client
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - src: '**/*.js'
+                    dest: .
+        - image: eu.gcr.io/tickets-306619/tickets
+          context: tickets
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - src: 'src/**/*.ts'
+                    dest: .
+        - image: eu.gcr.io/tickets-306619/orders
+          context: orders
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - src: 'src/**/*.ts'
+                    dest: .
+        - image: eu.gcr.io/tickets-306619/expiration
+          context: expiration
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - src: 'src/**/*.ts'
+                    dest: .
+        - image: eu.gcr.io/tickets-306619/payments
+          context: payments
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - src: 'src/**/*.ts'
+                    dest: .
