@@ -8,7 +8,7 @@ on:
             - 'auth/**'
 
 env:
-    IMAGE_NAME: auth
+    IMAGE_NAME: 'auth'
 
 jobs:
     build:
@@ -27,6 +27,6 @@ jobs:
 
             - name: push image to digitalocean
               run: |
-                  doctl registry login
+                  doctl registry login --expiry-seconds 600
                   docker tag $IMAGE_NAME registry.digitalocean.com/itsadockerhub/$IMAGE_NAME
                   docker push registry.digitalocean.com/itsadockerhub/$IMAGE_NAME
