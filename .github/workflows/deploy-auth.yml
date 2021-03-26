@@ -1,0 +1,28 @@
+name: Deploy-Auth
+
+on:
+    push:
+        branches:
+            - master:
+        paths:
+            - 'auth/**'
+env:
+    IMAGE_NAME: auth
+
+jobs:
+    runs-on: ubuntu-latest
+    steps:
+        - uses: actions/checkout@v2
+        - name: Build image
+          run: cd auth && docker build . --file Dockerfile --tag $IMAGE_NAME
+
+        - name: Install doctl # install the doctl on the runner
+          uses: digitalocean/action-doctl@v2
+          with:
+              token: ${{ secrets.DO_TOKEN }}
+
+        - name: push image to digitalocean
+          run: |
+              doctl registry login
+              docker tag $IMAGE_NAME registry.digitalocean.com/itsadockerhub/$IMAGE_NAME
+              docker push registry.digitalocean.com/itsadockerhub/$IMAGE_NAME
