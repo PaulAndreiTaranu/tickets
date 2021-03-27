@@ -14,7 +14,7 @@ spec:
         spec:
             containers:
                 - name: client
-                  image: eu.gcr.io/tickets-306619/client
+                  image: registry.digitalocean.com/itsadockerhub/client
                   env:
                       - name: JWT_KEY
                         valueFrom:

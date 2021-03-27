@@ -1,14 +1,14 @@
-name: Deploy-ticekts
+name: Deploy-tickets
 
 on:
     push:
         branches:
             - master
         paths:
-            - 'ticekts/**'
+            - 'tickets/**'
 
 env:
-    IMAGE_NAME: ticekts
+    IMAGE_NAME: tickets
     REGISTRY: registry.digitalocean.com/itsadockerhub
 
 jobs:
@@ -24,7 +24,7 @@ jobs:
                   token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
             - name: Build container image
-              run: cd ticekts && docker build -t $REGISTRY/$IMAGE_NAME .
+              run: cd tickets && docker build -t $REGISTRY/$IMAGE_NAME .
 
             - name: Log in to DigitalOcean Container Registry with short-lived credentials
               run: doctl registry login --expiry-seconds 1200
@@ -36,7 +36,7 @@ jobs:
               run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 tickets
 
             - name: Deploy to DigitalOcean Kubernetes
-              run: kubectl apply -f $GITHUB_WORKSPACE/infra/k8s/ticekts-depl.yaml
+              run: kubectl apply -f $GITHUB_WORKSPACE/infra/k8s/tickets-depl.yaml
 
             - name: Restart deployment
-              run: kubectl rollout restart deployment ticekts-depl
+              run: kubectl rollout restart deployment tickets-depl
