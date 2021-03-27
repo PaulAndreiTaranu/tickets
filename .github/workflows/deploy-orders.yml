@@ -9,7 +9,7 @@ on:
 
 env:
     IMAGE_NAME: orders
-    REGISTRY: registry.digitalocean.com/itsadockerhub
+    REGISTRY: registry.digitalocean.com/itsadockerhub/tickets
 
 jobs:
     build:
@@ -24,13 +24,13 @@ jobs:
                   token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
             - name: Build container image
-              run: cd orders && docker build -t $REGISTRY/$IMAGE_NAME .
+              run: cd orders && docker build -t $REGISTRY:$IMAGE_NAME .
 
             - name: Log in to DigitalOcean Container Registry with short-lived credentials
               run: doctl registry login --expiry-seconds 1200
 
             - name: Push image to DigitalOcean Container Registry
-              run: docker push $REGISTRY/$IMAGE_NAME
+              run: docker push $REGISTRY:$IMAGE_NAME
 
             - name: Save DigitalOcean kubeconfig with short-lived credentials
               run: doctl kubernetes cluster kubeconfig save --expiry-seconds 600 tickets

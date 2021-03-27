@@ -11,7 +11,7 @@ build:
     googleCloudBuild:
         projectId: tickets-306619
     artifacts:
-        - image: registry.digitalocean.com/itsadockerhub/auth
+        - image: registry.digitalocean.com/itsadockerhub/tickets/auth
           context: auth
           docker:
               dockerfile: Dockerfile
@@ -19,7 +19,7 @@ build:
               manual:
                   - src: 'src/**/*.ts'
                     dest: .
-        - image: registry.digitalocean.com/itsadockerhub/client
+        - image: registry.digitalocean.com/itsadockerhub/tickets/client
           context: client
           docker:
               dockerfile: Dockerfile
@@ -27,7 +27,7 @@ build:
               manual:
                   - src: '**/*.js'
                     dest: .
-        - image: registry.digitalocean.com/itsadockerhub/tickets
+        - image: registry.digitalocean.com/itsadockerhub/tickets/tickets
           context: tickets
           docker:
               dockerfile: Dockerfile
@@ -35,7 +35,7 @@ build:
               manual:
                   - src: 'src/**/*.ts'
                     dest: .
-        - image: registry.digitalocean.com/itsadockerhub/orders
+        - image: registry.digitalocean.com/itsadockerhub/tickets/orders
           context: orders
           docker:
               dockerfile: Dockerfile
@@ -43,7 +43,7 @@ build:
               manual:
                   - src: 'src/**/*.ts'
                     dest: .
-        - image: registry.digitalocean.com/itsadockerhub/expiration
+        - image: registry.digitalocean.com/itsadockerhub/tickets/expiration
           context: expiration
           docker:
               dockerfile: Dockerfile
@@ -51,7 +51,7 @@ build:
               manual:
                   - src: 'src/**/*.ts'
                     dest: .
-        - image: registry.digitalocean.com/itsadockerhub/payments
+        - image: registry.digitalocean.com/itsadockerhub/tickets/payments
           context: payments
           docker:
               dockerfile: Dockerfile
