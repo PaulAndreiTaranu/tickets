@@ -14,7 +14,7 @@ spec:
         spec:
             containers:
                 - name: auth
-                  image: registry.digitalocean.com/itsadockerhub/tickets/auth
+                  image: registry.digitalocean.com/itsadockerhub/tickets:auth
                   env:
                       - name: MONGO_URI
                         value: 'mongodb://auth-mongo-srv:27017/auth'

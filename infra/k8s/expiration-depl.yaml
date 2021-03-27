@@ -14,7 +14,7 @@ spec:
         spec:
             containers:
                 - name: expiration
-                  image: registry.digitalocean.com/itsadockerhub/tickets/expiration
+                  image: registry.digitalocean.com/itsadockerhub/tickets:expiration
                   env:
                       - name: NATS_URL
                         value: 'http://nats-srv:4222'
